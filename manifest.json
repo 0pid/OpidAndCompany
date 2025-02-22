@@ -1,0 +1,12 @@
+{
+    "name": "OpidAndCompany",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/0pid/OpidAndCompany",
+    "description": "Mod that adds new scrap items and purchasable items to the game.",
+    "dependencies": [
+        "BMX-LobbyCompatibility-1.4.0",
+        "Evaisa-LethalLib-0.16.2",
+        "Evaisa-HookGenPatcher-0.0.5",
+        "Evaisa-FixPluginTypesSerialization-1.1.2"
+    ]
+}
