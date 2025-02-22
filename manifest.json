@@ -7,6 +7,7 @@
         "BMX-LobbyCompatibility-1.4.0",
         "Evaisa-LethalLib-0.16.2",
         "Evaisa-HookGenPatcher-0.0.5",
-        "Evaisa-FixPluginTypesSerialization-1.1.2"
+        "Evaisa-FixPluginTypesSerialization-1.1.2",
+        "BepInEx-BepInExPack-5.4.2100"
     ]
 }
