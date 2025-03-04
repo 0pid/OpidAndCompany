@@ -1,0 +1,109 @@
+ManifestFileVersion: 0
+CRC: 3576252721
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 38fa43577f8d6cab7e507dd65f576e96
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 065d74c0e4bb0d1191e6640ae4fcc32a
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 38fa43577f8d6cab7e507dd65f576e96
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cdf88883f6da836f018db4dd67f32b4c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3c36d0a92cbb1f26a39169ef0eae393a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3d0cf24d2ccc3b7eab72048d0f57c437, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0e80ae96b3eb9177eea5c8f9dadbcda1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f19d9143a39eb3b46bc4563e9889cfbd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d3cecf05b78b173605122a700874719c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 134
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 144
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 241
+  Script: {instanceID: 0}
+- Class: 243
+  Script: {instanceID: 0}
+- Class: 245
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Battery
+- AssemblyName: Unity.RenderPipelines.HighDefinition.Runtime
+  ClassName: UnityEngine.Rendering.HighDefinition.BoolScalableSettingValue
+- AssemblyName: Unity.RenderPipelines.HighDefinition.Runtime
+  ClassName: UnityEngine.Rendering.HighDefinition.IntScalableSettingValue
+Assets:
+- Assets/ScaneNode.prefab
+- Assets/iTerminalNode.asset
+- Assets/CuteCeramicCritter.asset
+- Assets/Models/Cute_Ceramic_Critter_0217040429_texture.fbx
+- Assets/Buy GlowStick.asset
+- Assets/CuteCeramicCreature.prefab
+- Assets/GlowStick.prefab
+- Assets/Models/Cute_Ceramic_Critter_0217040429_texture.png
+- Assets/LethalCompany/Game/Textures/Sprites/GlowStickIcon.png
+- Assets/Deny.asset
+- Assets/Models/GlowStick.fbx
+- Assets/Corpse.asset
+- Assets/CancelPurchase.asset
+- Assets/Confirm.asset
+- Assets/Models/CuteCeramicCritter.fbx
+- Assets/GlowStick.asset
+- Assets/RedGlowStick.prefab
+- Assets/LethalCompany/Game/Prefabs/DeadBodyInfo/corpse.prefab
+Dependencies: []
