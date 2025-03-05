@@ -6,11 +6,12 @@ using BepInEx.Logging;
 using HarmonyLib;
 using LobbyCompatibility.Attributes;
 using LobbyCompatibility.Enums;
+using OpidAndCompany.Behaviours;
 using UnityEngine;
 
 namespace OpidAndCompany
 {
-    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, "1.0.4")]
     [BepInDependency("BMX.LobbyCompatibility", BepInDependency.DependencyFlags.HardDependency)]
     [LobbyCompatibility(CompatibilityLevel.ClientOnly, VersionStrictness.None)]
     [BepInDependency(LethalLib.Plugin.ModGUID)]
@@ -46,10 +47,15 @@ namespace OpidAndCompany
             // Register Glow Stick
             int iPrice = 1;
             TerminalNode iTerminalNode = MyAssetBundle.LoadAsset<TerminalNode>("Assets/iTerminalNode.asset");
-            Item MyTestItem = MyAssetBundle.LoadAsset<Item>("Assets/GlowStick.asset");
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(MyTestItem.spawnPrefab);
-            LethalLib.Modules.Utilities.FixMixerGroups(MyTestItem.spawnPrefab);
-            LethalLib.Modules.Items.RegisterShopItem(MyTestItem, null, null, iTerminalNode, iPrice);
+            Item glowStickItem = MyAssetBundle.LoadAsset<Item>("Assets/GlowStick.asset");
+            Glowstick script = glowStickItem.spawnPrefab.AddComponent<Glowstick>();
+            script.grabbable = true;
+            script.grabbableToEnemies = true;
+            script.itemProperties = glowStickItem;
+
+            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(glowStickItem.spawnPrefab);
+            LethalLib.Modules.Utilities.FixMixerGroups(glowStickItem.spawnPrefab);
+            LethalLib.Modules.Items.RegisterShopItem(glowStickItem, null, null, iTerminalNode, iPrice);
 
             Patch();
 
