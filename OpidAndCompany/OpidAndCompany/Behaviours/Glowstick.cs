@@ -8,7 +8,7 @@ namespace OpidAndCompany.Behaviours
     internal class Glowstick : PhysicsProp
     {
         //public override void ItemActivate(bool used, bool buttonDown = true)
-        //{            
+        //{
         //    base.ItemActivate(used, buttonDown);
         //    if (buttonDown)
         //    {
@@ -21,8 +21,8 @@ namespace OpidAndCompany.Behaviours
         //                if (lightComponent != null)
         //                {
         //                    // Toggle light on or off
-        //                    lightComponent.enabled = !lightComponent.enabled;
-        //                    Debug.Log("Light toggled: " + lightComponent.enabled);
+        //                    lightComponent.intensity += 1;
+        //                    Debug.Log("Light intensity now: " + lightComponent.intensity);
         //                }
         //                else
         //                {
@@ -69,6 +69,11 @@ namespace OpidAndCompany.Behaviours
                 var lightComponent = lightNode.GetComponent<Light>();
                 if (lightComponent != null)
                 {
+                    if(Plugin.GlowStickIntensity != null)
+                    {
+                        lightComponent.intensity = Plugin.GlowStickIntensity.Value;
+                    }
+
                     lightComponent.enabled = true;
                     Debug.Log("Light toggled: " + lightComponent.enabled);
                 }

@@ -9,7 +9,9 @@ This mod adds several new items to the game
   - **Balanced Gameplay:** A useful tool without making exploration too easy.  
   
 # Scrap
-- ???
+- **Cute Ceramic Critter**
+  - _He's just a little guy_
+
 
 # License
 This library is under MIT License. Meaning that you can decide to take this library for your own things and customize it as you need, so long as you follow the license's requirements
@@ -23,3 +25,4 @@ Glow stick model by [Rofnay](https://sketchfab.com/Rofnay)
 - Kraven0004
 - MacMeaties
 - NextGen Pants 
+- Cirno The ⑨th
