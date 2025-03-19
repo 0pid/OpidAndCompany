@@ -1,3 +1,6 @@
+# 1.0.6
+- Fixed audio bug that caused the Glow Stick and Cute Ceramic Critter sounds to play globally (Thanks for the report EnragedPotato)
+
 # 1.0.5
 - Added 3 new configurable values:
   - _Glow Stick Intensity:_ An integer representing the brightness level of the glow stick’s light. Higher values result in a stronger glow.

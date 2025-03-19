@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace OpidAndCompany
 {
-    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, "1.0.5")]
+    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
     [BepInDependency("BMX.LobbyCompatibility", BepInDependency.DependencyFlags.HardDependency)]
     [LobbyCompatibility(CompatibilityLevel.ClientOnly, VersionStrictness.None)]
     [BepInDependency(LethalLib.Plugin.ModGUID)]
@@ -42,7 +42,7 @@ namespace OpidAndCompany
 
             string sAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            opidsItems = AssetBundle.LoadFromFile(Path.Combine(sAssemblyLocation, "opidsitems"));
+            opidsItems = AssetBundle.LoadFromFile(Path.Combine(sAssemblyLocation, "opidsitems")); 
             if (opidsItems == null)
             {
                 Logger.LogError("Failed to load custom assets."); // ManualLogSource for your plugin
@@ -55,8 +55,7 @@ namespace OpidAndCompany
 
             // 
             if (SpawnCuteCeramicCritter.Value)
-            {                
-                Logger.LogInfo($"Cute Ceramic Critter is set to spawn with a rarity of {CuteCeramicCritterRarity.Value}");
+            {   
                 Item cuteCeramicCritter = opidsItems.LoadAsset<Item>("assets/cuteceramiccritter.asset");
                 LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(cuteCeramicCritter.spawnPrefab);
                 LethalLib.Modules.Utilities.FixMixerGroups(cuteCeramicCritter.spawnPrefab);
@@ -85,6 +84,7 @@ namespace OpidAndCompany
             Logger.LogInfo("  ╠══════════════════════════════════════════╣");
             Logger.LogInfo("  ║ ∙Digfish    ∙Kraven0004   ∙MacMeaties    ║");
             Logger.LogInfo("  ║ ∙Ingleflats ∙NextGenPants ∙Cirno The 9th ║");
+            Logger.LogInfo("  ║             ∙EnragedPotato               ║");
             Logger.LogInfo("  ╚══════════════════════════════════════════╝");            
         }
 

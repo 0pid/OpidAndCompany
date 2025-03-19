@@ -26,3 +26,4 @@ Glow stick model by [Rofnay](https://sketchfab.com/Rofnay)
 - MacMeaties
 - NextGen Pants 
 - Cirno The ⑨th
+- EnragedPotato
