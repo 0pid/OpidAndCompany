@@ -9,7 +9,8 @@ namespace OpidAndCompany.Behaviours
     {
         private Light? lightComponent;
         private float fadeDuration = 580f;
-        private float glowDuration = 3f;
+        private float glowDuration = 60f;
+        private float shakeDuration = 1f;
         private float elapsedFadeTime = 0f;
         private float elapsedGlowTime = 0f;
 
@@ -41,7 +42,7 @@ namespace OpidAndCompany.Behaviours
             base.Update();
             if(lightComponent == null)
             {
-                var lightComponent = FetchLightComponent();
+                lightComponent = FetchLightComponent();
             }
 
             if(lightComponent == null)
@@ -55,17 +56,18 @@ namespace OpidAndCompany.Behaviours
                 currentIntensity = Mathf.Lerp(currentIntensity, originalIntensity, elapsedGlowTime / glowDuration);
                 lightComponent.intensity = currentIntensity;
 
-                if (elapsedGlowTime >= glowDuration) // Stop glowing after 3s
+                if (elapsedGlowTime >= shakeDuration) // Stop glowing after 1s
                 {
                     isGlowing = false;
                     isFading = true;
                     elapsedFadeTime = 0f; // Reset fade timer
+                    originalIntensity = currentIntensity;
                 }
             }
             else if (isFading)
             {
                 elapsedFadeTime += Time.deltaTime;
-                currentIntensity = Mathf.Lerp(lightComponent.intensity, 0f, elapsedFadeTime / fadeDuration);
+                currentIntensity = Mathf.Lerp(originalIntensity, 0f, elapsedFadeTime / fadeDuration);
                 lightComponent.intensity = currentIntensity;
 
                 if (lightComponent.intensity <= 0.01f) // Close enough to fully faded
@@ -87,18 +89,6 @@ namespace OpidAndCompany.Behaviours
                     isGlowing = true;
                     elapsedGlowTime = 0f;
                     this.playerHeldBy.playerBodyAnimator.SetTrigger("shakeItem");
-
-                    //if (lightComponent == null)
-                    //{
-                    //    lightComponent = FetchLightComponent();
-                    //}
-
-                    //if (lightComponent != null)
-                    //{
-                        
-                    //    elapsedTime += Time.deltaTime;
-                    //    lightComponent.intensity = Mathf.Lerp(lightComponent.intensity, initialIntensity, elapsedTime / glowDuration);
-                    //}                
                 }
             }
         }
@@ -148,11 +138,7 @@ namespace OpidAndCompany.Behaviours
             if (playerHeldBy != null)
             {
                 this.playerHeldBy.equippedUsableItemQE = false;
-            }
-            else
-            {
-                Debug.Log("playerHeldBy is null");
-            }
+            }            
         }
 
         private Light? FetchLightComponent()
