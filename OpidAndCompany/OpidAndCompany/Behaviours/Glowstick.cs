@@ -7,100 +7,98 @@ namespace OpidAndCompany.Behaviours
 {
     internal class Glowstick : PhysicsProp
     {
+        private Light? lightComponent;
+        private float fadeDuration = 580f;
+        private float glowDuration = 3f;
+        private float elapsedFadeTime = 0f;
+        private float elapsedGlowTime = 0f;
+
+        private float currentIntensity;
+        private float originalIntensity;
+        private bool isGlowing = false;
+        private bool isFading = true;
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            var lightComponent = FetchLightComponent();
+            if(lightComponent == null)
+            {
+                lightComponent = FetchLightComponent();
+            }
+
             if (lightComponent != null)
             {
+                originalIntensity = Plugin.GlowStickIntensity.Value;
+                currentIntensity = Plugin.GlowStickIntensity.Value;
                 lightComponent.intensity = Plugin.GlowStickIntensity.Value;
-                currentIntensity = lightComponent.intensity;
             }
         }
-        //public override void ItemActivate(bool used, bool buttonDown = true)
-        //{
-        //    base.ItemActivate(used, buttonDown);
-        //    if (buttonDown)
-        //    {
-        //        if (playerHeldBy != null)
-        //        {
-        //            var lightNode = this.transform.Find("Light_S");
-        //            if (lightNode != null)
-        //            {
-        //                var lightComponent = lightNode.GetComponent<Light>();
-        //                if (lightComponent != null)
-        //                {
-        //                    // Toggle light on or off
-        //                    lightComponent.intensity += 1;
-        //                    Debug.Log("Light intensity now: " + lightComponent.intensity);
-        //                }
-        //                else
-        //                {
-        //                    Debug.Log("Light component not found");
-        //                }
-        //            }
-        //            else
-        //            {
-        //                Debug.Log("Light node not found");
-        //            }
-        //        }
-        //    }
-        //}
-        //
-        private bool hasBeenPickedUp;
-        private float currentIntensity;
-        public float decayRate = 0.1f; // Controls how fast the glowstick fades
+        
+        private bool hasBeenPickedUp;       
+        
 
         public override void Update()
         {
             base.Update();
-            // Reduce intensity over time
-            if (currentIntensity > 0)
+            if(lightComponent == null)
             {
-                var decayBy = decayRate * Time.deltaTime;
-                currentIntensity -= decayBy;
-                Debug.Log("Light decay: " + decayBy);
-                currentIntensity = Mathf.Max(0, currentIntensity); // Ensure it doesn't go negative
+                var lightComponent = FetchLightComponent();
             }
 
-            var lightComponent = FetchLightComponent();
-            if (lightComponent != null)
+            if(lightComponent == null)
             {
-                lightComponent.intensity = currentIntensity;
-                Debug.Log("Light inensity: " + lightComponent.intensity);
-            }
-        }
-
-        public override void InteractItem()
-        {
-            base.InteractItem();
-            hasBeenPickedUp = true;
-            Debug.Log("InteractItem");            
-            Debug.Log((object)string.Format("interact {0}", (object)((UnityEngine.Object)this.playerHeldBy == (UnityEngine.Object)null)));
-            if ((UnityEngine.Object)this.playerHeldBy == (UnityEngine.Object)null)
                 return;
+            }
 
-            this.playerHeldBy.playerBodyAnimator.SetTrigger("shakeItem");
+            if (isGlowing)
+            {
+                elapsedGlowTime += Time.deltaTime;
+                currentIntensity = Mathf.Lerp(currentIntensity, originalIntensity, elapsedGlowTime / glowDuration);
+                lightComponent.intensity = currentIntensity;
+
+                if (elapsedGlowTime >= glowDuration) // Stop glowing after 3s
+                {
+                    isGlowing = false;
+                    isFading = true;
+                    elapsedFadeTime = 0f; // Reset fade timer
+                }
+            }
+            else if (isFading)
+            {
+                elapsedFadeTime += Time.deltaTime;
+                currentIntensity = Mathf.Lerp(lightComponent.intensity, 0f, elapsedFadeTime / fadeDuration);
+                lightComponent.intensity = currentIntensity;
+
+                if (lightComponent.intensity <= 0.01f) // Close enough to fully faded
+                {
+                    lightComponent.intensity = 0f;
+                    isFading = false;
+                }
+            }           
         }
 
         public override void ItemInteractLeftRight(bool right)
         {            
-            base.ItemInteractLeftRight(right);            
-            if (playerHeldBy != null)
+            base.ItemInteractLeftRight(right);
+            if (!right)
             {
-                var lightComponent = FetchLightComponent();
-                if (lightComponent != null)
+                if (playerHeldBy != null)
                 {
+                    isFading = false;
+                    isGlowing = true;
+                    elapsedGlowTime = 0f;
                     this.playerHeldBy.playerBodyAnimator.SetTrigger("shakeItem");
-                    if (right)
-                    {
-                        currentIntensity += 5;                        
-                    }
-                    else
-                    {
-                        currentIntensity -= 5;                        
-                    }
-                    Debug.Log("Light inensity: " + lightComponent.intensity);
+
+                    //if (lightComponent == null)
+                    //{
+                    //    lightComponent = FetchLightComponent();
+                    //}
+
+                    //if (lightComponent != null)
+                    //{
+                        
+                    //    elapsedTime += Time.deltaTime;
+                    //    lightComponent.intensity = Mathf.Lerp(lightComponent.intensity, initialIntensity, elapsedTime / glowDuration);
+                    //}                
                 }
             }
         }
@@ -108,32 +106,19 @@ namespace OpidAndCompany.Behaviours
         public override void PocketItem()
         {
             base.PocketItem();
-            var lightNode = this.transform.Find("Light_S");
-            if (lightNode != null)
+            if(lightComponent == null)
             {
-                var lightComponent = lightNode.GetComponent<Light>();
-                if (lightComponent != null)
-                {
-                    lightComponent.enabled = false;
-                    Debug.Log("Light toggled: " + lightComponent.enabled);
-                }
-                else
-                {
-                    Debug.Log("Light component not found");
-                }
+                lightComponent = FetchLightComponent();
             }
-            else
+
+            if (lightComponent != null) 
             {
-                Debug.Log("Light node not found");
+                lightComponent.enabled = false;
             }
 
             if (playerHeldBy != null)
             {
                 this.playerHeldBy.equippedUsableItemQE = false;
-            }
-            else
-            {
-                Debug.Log("playerHeldBy is null");
             }
         }
 
@@ -141,42 +126,19 @@ namespace OpidAndCompany.Behaviours
         {
             base.EquipItem();
             hasBeenPickedUp = true;
-            var lightNode = this.transform.Find("Light_S");
-            if (lightNode != null)
+            if (lightComponent == null)
             {
-                var lightComponent = lightNode.GetComponent<Light>();
-                if (lightComponent != null)
-                {
-                    if(Plugin.GlowStickIntensity != null)
-                    {
-                        if(currentIntensity == null)
-                        {
-                            currentIntensity = Plugin.GlowStickIntensity.Value;
-                        }
-
-                        lightComponent.intensity = Plugin.GlowStickIntensity.Value;
-                    }
-
-                    lightComponent.enabled = true;
-                    Debug.Log("Light toggled: " + lightComponent.enabled);
-                }
-                else
-                {
-                    Debug.Log("Light component not found");
-                }
-            }
-            else
-            {
-                Debug.Log("Light node not found");
+                lightComponent = FetchLightComponent();
             }
 
-            if(playerHeldBy != null)
+            if (lightComponent != null)
             {
-                this.playerHeldBy.equippedUsableItemQE = true;                
+                lightComponent.enabled = true;
             }
-            else
+
+            if (playerHeldBy != null)
             {
-                Debug.Log("playerHeldBy is null");
+                this.playerHeldBy.equippedUsableItemQE = true;
             }
         }
 
