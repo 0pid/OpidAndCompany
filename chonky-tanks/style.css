@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  background: #eeeeee;
+}
+
+body.forest { background: #5c8a4b; }
+body.desert { background: #d8c079; }
+body.urban { background: #999999; }
